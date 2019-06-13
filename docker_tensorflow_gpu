@@ -22,7 +22,7 @@ $>
 https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&target_distro=Ubuntu&target_version=1804&target_type=deblocal
 
 <$
-#copy paste the redirected URL from above so you can download from the command line on the server
+#copy paste the redirected URL from above so you can download from the command line on the server with wget
 export URL=https://developer.download.nvidia.com/compute/cuda/10.0/secure/Prod/local_installers/cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64.deb?2c5cgnfLqTihzYjBcxRrgWAeGyz8mBmM--5rWTIfHpSGFvDRJ_wTtIenGrApj1QY9CWC9AIhnb7hPHp5SU7gG9KXWxKtYXvb9GgOA5nzsDsThRe9IP9mPiTjlv4QiZhCzSTRwD9XqOTRMyqVVrBU_ZtumAdoZzK5b3XBHx6KopzSpjj1T2hgS-IhPcaI3A84k0b45rDvdozVj5ILssZdOyJ6PAZXnzEl02qkDqY
 mkdir ~/cuda
 cd ~/cuda
@@ -60,7 +60,7 @@ docker run hello-world
 $>
 
 
-## D. NVIDIA for Docker 
+## D. NVIDIA runtime for Docker 
 
 https://github.com/NVIDIA/nvidia-docker
 
@@ -81,10 +81,11 @@ $>
 https://www.tensorflow.org/install/docker
 
 <$
-#pull latest tensorflow docker image version
-docker pull tensorflow/tensorflow:latest-gpu-jupyter
+#get a copy of tensorflow docker images
+docker pull tensorflow/tensorflow:latest-gpu
+docker pull tensorflow/tensorflow:1.13.1-gpu-jupyter
 #test cuda on docker
 sudo docker run --runtime=nvidia -it --rm tensorflow/tensorflow:latest-gpu python -c "import tensorflow as tf; tf.enable_eager_execution(); print(tf.reduce_sum(tf.random_normal([1000, 1000])))"
 #start jupyter notebook on port 8888 and tensorboard on port 6006
-docker run -u $(id -u):$(id -g) --name tf-jupyter -d --rm -v path/to/shared/folder:/tf/shared -p 8888:8888 -p 6006:6006 tensorflow/tensorflow:tf-jupyter
+docker run -u $(id -u):$(id -g) --name tf-jupyter -d --rm -v path/to/shared/folder:/tf/shared -p 8888:8888 -p 6006:6006 tensorflow/tensorflow:1.13.1-gpu-jupyter
 $>
