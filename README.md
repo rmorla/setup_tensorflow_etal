@@ -13,10 +13,15 @@ https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html
 
 <$
 lspci | grep -i nvidia
+
 uname -m && cat /etc/*release
+
 gcc --version
+
 sudo apt-get install gcc
+
 sudo apt-get install linux-headers-$(uname -r)
+
 $>
 
 ### Download, install, and test CUDA
